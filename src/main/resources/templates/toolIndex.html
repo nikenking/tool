@@ -8,11 +8,17 @@
     </script>
     <script>
         $(function () {
-            $("#t1").click(function () {
+            $("#toArray").click(function () {
                 var sendMsg = document.getElementById("sendMsg");
                 var inputBox = document.getElementById("inputBox");
                 sendMsg.value = inputBox.value;
-                document.getElementById("t1").submit();
+                document.getElementById("toArray").submit();
+            });
+            $("#toArrays").click(function () {
+                var sendMsg = document.getElementById("sendMsg2");
+                var inputBox = document.getElementById("inputBox");
+                sendMsg.value = inputBox.value;
+                document.getElementById("toArrays").submit();
             });
             $("#t2").click(function () {
                 $("#t2").submit();
@@ -89,9 +95,15 @@
         </form>
     </div>
     <div class="h2">
-        <form id="t1" action="@{/save}" th:action="@{/save}" method="post">
+        <form id="toArray" action="@{/save}" th:action="@{/save}" method="post">
             ["",""]
             <textarea id="sendMsg" name="msg" hidden="hidden"></textarea>
+        </form>
+    </div>
+    <div class="h2">
+        <form id="toArrays" action="@{/toArrays}" th:action="@{/toArrays}" method="post">
+            [toArrays]
+            <textarea id="sendMsg2" name="msg" hidden="hidden"></textarea>
         </form>
     </div>
 </div>

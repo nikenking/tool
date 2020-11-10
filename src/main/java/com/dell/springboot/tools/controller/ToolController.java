@@ -1,6 +1,7 @@
 package com.dell.springboot.tools.controller;
 
 import com.dell.springboot.tools.service.ToolService;
+import com.dell.springboot.tools.utils.BufferUtil;
 import com.dell.springboot.tools.utils.ConvertTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 @Controller
-public class ToolController {
+public class ToolController{
     @Autowired
     ToolService ts;
     @GetMapping(value = {"/"})
@@ -19,11 +24,20 @@ public class ToolController {
     }
 
     @PostMapping(value = {"/save"})
-    public String inserMsg(@RequestParam("msg") String msg, Model model){
-        System.out.println("传递过来的信息:\n"+msg);
+    public String inserMsg(@RequestParam("msg") String msg, Model model) throws IOException {
         msg = ConvertTool.convert1(msg);
-        System.out.println("转化完毕:\n"+msg);
+        BufferUtil.write(msg,new File("C:\\Tool\\ToolStore.txt"));
         model.addAttribute("result",msg);
         return "toolIndex";
     }
+
+    @PostMapping(value = {"/toArrays"})
+    public String inserMsgInArrays(@RequestParam("msg") String msg, Model model) throws IOException {
+        msg = ConvertTool.convert2(msg);
+        BufferUtil.write(msg,new File("C:\\Tool\\ToolStore.txt"));
+        model.addAttribute("result",msg);
+        return "toolIndex";
+    }
+
+
 }
